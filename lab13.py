@@ -192,7 +192,6 @@ def skeletonRoom(acceptableCommands):
     """
     description = 'SKELETON ROOM!\nStalagmites fill this cavern.\n' \
                   'You see skeletons of past victims that fell down the well.\nPoor souls!'
-    printDetails(description)
     userCommand = runRoom(description, acceptableCommands)#['UP', 'RIGHT']
     return userCommand
 
