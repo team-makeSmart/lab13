@@ -18,7 +18,6 @@ def getArticle():
     if os.path.exists(path):
         file = open(path, "rt")
         return file.read()
-        print(_)
     # Manually select file if not found
     else:
         print "File not found\nPlease select " + article
