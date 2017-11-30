@@ -52,10 +52,10 @@ def getInput(prompt):
     """ Used to make sure that the user entered something in the prompt """
     
     word = ''
-    while not word:
+    while not word or word.isspace():
         word = requestString(prompt)
-        if not word:
-            showInformation("Input required")
+        if not word or word.isspace():
+            showInformation("Invalid input")
     return word
           
 
