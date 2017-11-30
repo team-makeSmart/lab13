@@ -1,6 +1,6 @@
-# team MakeSmart
-# lab13
-# 
+# Lab 13
+# Team MakeSmart
+# Pavlos Papadonikolakis, Maco Doussias, Jake McGhee
 
 # used for getArticle(), may delete if we can't find a way to use getArticle()
 import os
