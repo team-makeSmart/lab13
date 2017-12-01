@@ -215,13 +215,23 @@ def islandRoom(acceptableCommands):
                   'The water is blue and it refracts light on the cavern walls.\nThere is a lot of rope laying around!'
     userCommand = runRoom(description, acceptableCommands)#['LEFT']
     return userCommand
+    
+def getName():
+    name = ''
+    while not name or name.isspace():
+        name = requestString("What is your name?")
+        if not name or name.isspace():
+            showInformation("Invalid input!")
+    return name
   
 
 def main():
     """main function, starts the game """
 
     showInformation('Lets Get Started!')
+    name = getName()
     showInformation(welcomeMessage())
+ 
     
     
     x = 0  # represents an x cartestian coordinate
@@ -275,7 +285,7 @@ def main():
         if userCommand == 'HELP':
             getHelp()
         elif userCommand == 'EXIT':
-            print("Even though you are a quiter, thank you for playing!")
+            showInformation(name + ',\nEven though you are a quiter, thank you for playing!')
             return  # effectively exit the program
             
         elif userCommand == 'MAP':
@@ -298,7 +308,7 @@ def main():
           hasRope = true
           
         elif userCommand == 'CLIMBOUT':
-          showInformation('YOU WIN! You use the rope to climb out\n!You have survived the game!')
+          showInformation('YOU WIN! You use the rope to climb out\n' + name + 'you have survived the game!')
           return #end of game, user has won   
                       
         elif userCommand == 'UP':
@@ -316,5 +326,5 @@ def main():
     
         #GAME OVER condition        
         if roomChanges > maxRoomChanges:
-          showInformation('GAME OVER\nYOU HAVE DIED FROM OXYGEN DEPREVATION\nTOO MANY ROOM CHANGES SO YOU HAVE LOST THE GAME!')
+          showInformation('GAME OVER ' + name.upper() + '\nYOU HAVE DIED FROM OXYGEN DEPREVATION\nTOO MANY ROOM CHANGES SO YOU HAVE LOST THE GAME!')
           return #end of game         
