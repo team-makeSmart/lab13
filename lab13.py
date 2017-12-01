@@ -238,9 +238,10 @@ def main():
     y = 0  # represents a y cartestian coordinate
     
     #additional items and actions 
-    darkRoomLit = false #changes to true if matches used in dark room 
-    hasMatches = false #changes to true if user picks up matches
-    hasRope = false #changes to true if user picks up rope
+    rope = 'ROPE'
+    matches = 'MATCHES'
+    items = []
+    darkRoomLit = false #changes to true if matches used in dark room
     secretRoomAccess = false #user can only gain access to secret room by lighting a match in the dark room
     roomChanges = 0 #If room changes exceeds maxRoomChanges, you lose the game
     maxRoomChanges = 20 #Lose condition if you exceed maxRoomChanges  
@@ -249,7 +250,7 @@ def main():
     while true:
 
         if x == 0 and y == 0:
-          if hasRope == false:
+          if rope not in items:
             userCommand = startRoom(['RIGHT', 'DOWN'])
           else:
             userCommand = startRoom(['RIGHT', 'DOWN', 'CLIMBOUT'])     
@@ -260,7 +261,7 @@ def main():
         elif x == 1 and y == 0:
          if secretRoomAccess == true:
            userCommand = darkRoom(['RIGHT', 'DOWN', 'LEFT', 'UP'])
-         elif hasMatches == true:
+         elif matches in items:
            userCommand = darkRoom(['RIGHT', 'DOWN', 'LEFT', 'STRIKEMATCH'])
          else:
            userCommand = darkRoom(['RIGHT', 'DOWN', 'LEFT'])
@@ -270,13 +271,13 @@ def main():
           userCommand = secretRoom(['DOWN'])  
                
         elif x == 2 and y == 0:
-          if hasRope == false:    
+          if rope not in items:    
             userCommand = islandRoom(['LEFT','GETROPE'])
           else:
             userCommand = islandRoom(['LEFT'])  
             
         elif x == 1 and y == -1:
-          if hasMatches == true:  
+          if matches in items:  
             userCommand = batRoom(['LEFT', 'UP'])
           else:
             userCommand = batRoom(['LEFT', 'UP', 'GETMATCHES'])
@@ -292,11 +293,11 @@ def main():
             if x == 1 and y == 0:
                 showInformation('You cannot read your map in the Dark Room... Too dark!')
             else:
-             map()
+                map()
              
         elif userCommand == 'GETMATCHES':
           showInformation('You have picked up several matches!')
-          hasMatches = true
+          items.append(matches)
           
         elif userCommand == 'STRIKEMATCH':
           showInformation('After stirking the match, you see a secret room hidden in the shadows!'\
@@ -305,10 +306,10 @@ def main():
           
         elif userCommand == 'GETROPE':
           showInformation('You have picked up rope!\nYou can use rope to climb!')
-          hasRope = true
+          items.append(rope)
           
         elif userCommand == 'CLIMBOUT':
-          showInformation('YOU WIN! You use the rope to climb out\n' + name + 'you have survived the game!')
+          showInformation('YOU WIN! You use the rope to climb out\n' + name + ' you have survived the game!')
           return #end of game, user has won   
                       
         elif userCommand == 'UP':
