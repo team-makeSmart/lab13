@@ -316,5 +316,5 @@ def main():
     
         #GAME OVER condition        
         if roomChanges > maxRoomChanges:
-          printNow('GAME OVER\nYOU HAVE DIED FROM OXYGEN DEPREVATION\nTOO MANY ROOM CHANGES SO YOU HAVE LOST THE GAME!')
+          showInformation('GAME OVER\nYOU HAVE DIED FROM OXYGEN DEPREVATION\nTOO MANY ROOM CHANGES SO YOU HAVE LOST THE GAME!')
           return #end of game         
