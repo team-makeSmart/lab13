@@ -5,9 +5,6 @@
 
 # -------------------------- Lab 13 - Part I  --------------------------
 
-# used for getArticle(), may delete if we can't find a way to use getArticle()
-import os
-
 def madLibs():
     showInformation("Lets play some Mad Libs!")
     
@@ -61,30 +58,6 @@ def getInput(prompt):
             showInformation("Invalid input")
     return word
           
-
-"""  So I started building this function to read the text from an external file but can't for the life of me figure out how to correctly read in single quotes and double quotes.
-  It would be a nice feature but I'm putting it on pause until the rest of the program requirements are complete. May end up deleting if we can't figure out how to fix """
-def getArticle():
-    article = "article.txt"
-  
-    # Get the programs working directory - see https://stackoverflow.com/questions/5137497/find-current-directory-and-files-directory
-    directory = os.path.dirname(os.path.abspath(__file__)) 
-    
-    # Make full path name
-    path = directory + "\\" + article
-    
-    
-    # Make sure the file exists - see https://stackoverflow.com/questions/82831/how-do-i-check-whether-a-file-exists-using-python
-    if os.path.exists(path):
-        file = open(path, "rt")
-        return file.read()
-    # Manually select file if not found
-    else:
-        print "File not found\nPlease select " + article
-        file = open(pickAFile(), "rt")
-        return file.read()
-
-
 # -------------------------- Lab 13 - Part II  --------------------------
 
 # CAVE ESCAPE Game Description:
