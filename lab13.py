@@ -5,28 +5,20 @@
 
 # -------------------------- Lab 13 - Part I  --------------------------
 
+import urllib
+
 def madLibs():
     showInformation("Lets play some Mad Libs!")
-    
+
     # Article is broken up into multiple lines because single quotes and double quotes within the article break things if its typed in as one string
-    articleList = ['On the same day this week that the Spanish authorities stormed the offices of the Catalan regional government, detaining at least 14 people, a less-noticed raid took place.',
-    'The puntCat foundation, which oversees the registry of websites with the ".cat" domain, tweeted Wednesday that its offices had also been raided and that one of its senior executives had been arrested.',
-    'An arrest. Cats. The internet. Naturally, we were curious.',
-    'Cats, of course, have a storied history on the internet. Cat videos were among the first clips to go viral on YouTube. BuzzFeed once told a reporter that cat posts generated 3.5 times more traffic than the average post.',
-    'There flourished internet cats that wanted cheeseburgers, internet cats that were grumpy, internet cats that played keyboards, and an internet cat with an enviable life of the mind.',
-    "In 2013, a cat food company, Friskies, promulgated a rumor that 15 percent of all internet traffic was cat-related. That this was even believable speaks to cats' status as rulers of the digital jungle.",
-    'Almost all sites with the .cat suffix belong to the Catalan-speaking community thanks to the efforts of the puntCAT ("dot-cat" in Catalan),',
-    "the foundation approved in 2005 to manage the domain's registry by the global Internet Corporation for Assigned Names and Numbers. That made it one of the first domains to explicitly refer to a language and culture, paving the way for others, when it first appeared in 2006.",
-    "Catalan is spoken in Catalonia, the Spanish region that includes Barcelona and where political leaders have been pushing for years to secede from the rest of Spain. Madrid has declared that the secession effort violates the country's constitution, and have cracked down on attempts to hold a referendum on secession on Oct. 1.",
-    'In a letter to ICANN, the foundation said that the Spanish authorities had asked it to "block all .cat domain names that may contain any kind of information about the forthcoming independence referendum."',
-    '"We are being requested to censor content and suppress freedom of speech," the organization added.']
+    articleList = getArticle().split()
     # Article taken from https://www.nytimes.com/2017/09/22/style/cat-domain-catalonia.html
-    
+
     # Rewrite the article into a single string
     article = ''
     for line in articleList:
-        article += line + ' '
-    
+        article += line +' '
+
     # Get user input to replace words in the article
     replacementWords = dict()
     replacementWords['cat'] = getInput('Your first name').title()
@@ -41,22 +33,49 @@ def madLibs():
     replacementWords['Madrid'] = getInput('A politician').title()
     replacementWords['an enviable life of the mind'] = getInput('The coolest superpower').lower() + " superpowers"
     replacementWords['grumpy'] = getInput('A dangerous activity').lower()
-    
+
     # Replace words in the article
     for key in replacementWords:
         article = article.replace(key, replacementWords[key])
-        
+
     showInformation(article)
-    
+
+
 def getInput(prompt):
     """ Used to make sure that the user entered something in the prompt """
-    
+
     word = ''
     while not word or word.isspace():
         word = requestString(prompt)
         if not word or word.isspace():
             showInformation("Invalid input")
     return word
+
+
+def getArticle():
+    url = 'https://www.nytimes.com/2017/09/22/style/cat-domain-catalonia.html'
+    
+    html_file = urllib.urlopen(url).read()
+    text = ''
+    starting_point = '<p class="story-body-text story-content"'
+    starting_point_length = len(starting_point)
+
+    k = 0
+    for i in xrange(len(html_file)):
+
+        if html_file[i:i + starting_point_length] == starting_point:
+            j = i + starting_point_length  # we are in the begining of the  string that it is not needed
+
+            while html_file[j] != '>':  # go to the end of the tag
+                j += 1  # increment j
+                if html_file[j] == '>':  # if at the end of the tag : </p>
+                    k = j + 1  # skip '>' and increment k
+                    while html_file[k] != '<':  # do not enter inside the <a> tag
+                        text += html_file[k]  # get the real text
+                        k = k + 1
+                    break
+
+    return urllib.unquote(text).decode('utf8')
           
 # -------------------------- Lab 13 - Part II  --------------------------
 
