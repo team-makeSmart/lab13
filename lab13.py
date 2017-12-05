@@ -1,6 +1,10 @@
 # Lab 13
 # Team MakeSmart
 # Pavlos Papadonikolakis, Maco Doussias, Jake McGhee
+#12-02-17
+
+#Type madLibs() into console for PART1 of this lab
+#Type main() into console for PART2 of this lab additions 
 
 
 # -------------------------- Lab 13 - Part I  --------------------------
